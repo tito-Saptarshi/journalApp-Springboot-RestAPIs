@@ -11,3 +11,6 @@ public class JournalApplication {
 	}
 
 }
+
+
+// new system added
