@@ -2,6 +2,7 @@ package com.saptarshi.journalApp.service;
 
 import com.saptarshi.journalApp.entity.JournalEntry;
 import com.saptarshi.journalApp.repository.JournalEntryRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
