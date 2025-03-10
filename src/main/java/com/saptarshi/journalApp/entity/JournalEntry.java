@@ -4,22 +4,20 @@ import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.lang.NonNull;
+
 
 import java.time.LocalDateTime;
 
 //POJO -> Plain Old Java Object
 //@Document(collation = "JournalEntry")
-@Document
+@Document(collection="journal_entry")
 @Data
 public class JournalEntry {
     @Id
     private ObjectId id;
     @NonNull
     private String title;
-
     private String content;
-
     private LocalDateTime date;
 
 //    public LocalDateTime getDate() {
