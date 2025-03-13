@@ -33,7 +33,7 @@ public class JournalEntryControllerV3 {
 
         try {
             myEntry.setDate(LocalDateTime.now());
-            journalEntryService.saveEntry(myEntry, user);
+            journalEntryService.saveEntryOld(myEntry);
             return new ResponseEntity<>(myEntry, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -55,7 +55,7 @@ public class JournalEntryControllerV3 {
     @DeleteMapping("/id/{myId}")
     public ResponseEntity<?> deleteJournalEntryById(@PathVariable ObjectId myId) {
 //        return journalEntries.remove(myId);
-        journalEntryService.deleteById(myId);
+        journalEntryService.deleteByIdOld(myId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
