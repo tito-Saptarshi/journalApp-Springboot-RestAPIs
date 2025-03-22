@@ -1,12 +1,15 @@
 package com.saptarshi.journalApp.controller;
 
 import com.saptarshi.journalApp.entity.User;
+import com.saptarshi.journalApp.repository.UserRepository;
 import com.saptarshi.journalApp.service.UserService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 
@@ -15,6 +18,9 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping
     public List<User> getAllUser() {
@@ -26,14 +32,24 @@ public class UserController {
         userService.saveEntry(user);
     }
 
-    @PutMapping("/{userName}")
-    public ResponseEntity<?> updateUser (@RequestBody User user, @PathVariable String userName) {
+    @PutMapping
+    public ResponseEntity<?> updateUser (@RequestBody User user) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
+
         User userInDb = userService.findByUserName(userName);
-        if(userInDb != null) {
-            userInDb.setUserName(user.getUserName());
-            userInDb.setPassword(user.getPassword());
-            userService.saveEntry(userInDb);
-        }
+        userInDb.setUserName(user.getUserName());
+        userInDb.setPassword(user.getPassword());
+        userService.saveEntry(userInDb);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> deleteById () {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        userRepository.deleteByUserName(authentication.getName());
+
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

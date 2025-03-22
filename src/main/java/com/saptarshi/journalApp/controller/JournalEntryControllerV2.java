@@ -23,6 +23,7 @@ public class JournalEntryControllerV2 {
     private JournalEntryService journalEntryService;
     @Autowired
     private UserService userService;
+
     @GetMapping
     public ResponseEntity<?> getAll() {
       List<JournalEntry> all = journalEntryService.getAll();

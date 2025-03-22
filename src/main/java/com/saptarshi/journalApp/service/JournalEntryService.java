@@ -60,11 +60,14 @@ public class JournalEntryService {
         journalEntryRepository.deleteById(id);
     }
 
+    @Transactional
     public void deleteById(ObjectId id, String userName) {
         User user = userService.findByUserName(userName);
-        user.getJournalEntries().removeIf(x -> x.getId().equals(id));
-        userService.saveEntry(user);
-        journalEntryRepository.deleteById(id);
+        if (user != null) {
+            user.getJournalEntries().removeIf(x -> x.getId().equals(id));
+            userService.saveEntry(user);
+            journalEntryRepository.deleteById(id);
+        }
     }
 }
 
