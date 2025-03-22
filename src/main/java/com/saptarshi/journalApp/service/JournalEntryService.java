@@ -33,8 +33,8 @@ public class JournalEntryService {
             journalEntry.setDate(LocalDateTime.now());
             JournalEntry saved = journalEntryRepository.save(journalEntry);
             user.getJournalEntries().add(saved);
-//            user.setUserName(null);
-            userService.saveEntry(user);
+//            user.setName(null);
+            userService.saveUser(user);
         } catch (Exception e) {
             System.out.println(e);
             throw new RuntimeException("Error occurred while saving.", e);
@@ -65,7 +65,7 @@ public class JournalEntryService {
         User user = userService.findByUserName(userName);
         if (user != null) {
             user.getJournalEntries().removeIf(x -> x.getId().equals(id));
-            userService.saveEntry(user);
+            userService.saveNewUser(user);
             journalEntryRepository.deleteById(id);
         }
     }

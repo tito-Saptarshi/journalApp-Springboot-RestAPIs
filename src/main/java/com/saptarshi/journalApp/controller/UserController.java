@@ -3,7 +3,6 @@ package com.saptarshi.journalApp.controller;
 import com.saptarshi.journalApp.entity.User;
 import com.saptarshi.journalApp.repository.UserRepository;
 import com.saptarshi.journalApp.service.UserService;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +28,7 @@ public class UserController {
 
     @PostMapping
     public void createUser(@RequestBody User user) {
-        userService.saveEntry(user);
+        userService.saveNewUser(user);
     }
 
     @PutMapping
@@ -40,7 +39,7 @@ public class UserController {
         User userInDb = userService.findByUserName(userName);
         userInDb.setUserName(user.getUserName());
         userInDb.setPassword(user.getPassword());
-        userService.saveEntry(userInDb);
+        userService.saveNewUser(userInDb);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
