@@ -2,6 +2,7 @@ package com.saptarshi.journalApp.service;
 
 import com.saptarshi.journalApp.entity.User;
 import com.saptarshi.journalApp.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +16,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
+@Slf4j
 public class UserService {
 
-    public static final Logger logger = LoggerFactory.getLogger(UserService.class);
+//    public static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -35,7 +37,12 @@ public class UserService {
             userRepository.save(user);
             return true;
         } catch (Exception e) {
-            logger.info("hahahahhaha");
+//            logger.error("Error Occurred for {} :", user.getUserName(), e);
+            log.error("Error Occurred for {} :", user.getUserName(), e);
+//            logger.warn("hahahahhaha");
+//            logger.info("hahahahhaha");
+//            logger.debug("hahahahhaha");
+//            logger.trace("hahahahhaha");
             return false;
         }
     }
