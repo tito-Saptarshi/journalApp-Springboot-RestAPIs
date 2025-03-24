@@ -3,6 +3,8 @@ package com.saptarshi.journalApp.service;
 import com.saptarshi.journalApp.entity.User;
 import com.saptarshi.journalApp.repository.UserRepository;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +16,9 @@ import java.util.Optional;
 
 @Component
 public class UserService {
+
+    public static final Logger logger = LoggerFactory.getLogger(UserService.class);
+
     @Autowired
     private UserRepository userRepository;
 
@@ -30,6 +35,7 @@ public class UserService {
             userRepository.save(user);
             return true;
         } catch (Exception e) {
+            logger.info("hahahahhaha");
             return false;
         }
     }
